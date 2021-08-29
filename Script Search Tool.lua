@@ -808,98 +808,98 @@ Drag(ScriptSearchTool.Main)
 Drag(ScriptSearchTool.Main_2)
 
 local function GetFullName(x)
-if x.Name then
-	local t = {}
-	while x ~= game and x ~= nil do
-		local name = x.Name:gsub('[\"]', '\\%0')
-		table.insert(t, 1, name)
-		x = x.Parent
+	if x.Name then
+		local t = {}
+		while x ~= game and x ~= nil do
+			local name = x.Name:gsub('[\"]', '\\%0')
+			table.insert(t, 1, name)
+			x = x.Parent
+		end
+		return 'game["'..table.concat(t, '"]["')..'"]'
+	else
+		return '[Unable to get script path.]'
 	end
-	return 'game["'..table.concat(t, '"]["')..'"]'
-else
-	return '[Unable to get script path.]'
-end
 end
 
 local function AddResult(Script)
-if Script then
-	local DecompiledScript = '-- Script Search Tool | reggie#1000\n-- Failed to get decompile bytecode, does your exploit support decompile()?                  '..'\n\n'
-	if decompile then
-		DecompiledScript = '-- Script Search Tool | reggie#1000\n'..decompile(Script)..'\n\n'
-	end
-	ScriptsDecompiled[Script.Name] = {Script, DecompiledScript}
-	NumberOfDecompiledScripts = NumberOfDecompiledScripts + 1
-	ScriptSearchTool.Status.Text = 'Scripts Decompiled: '..tostring(NumberOfDecompiledScripts)..'/'..#ScriptsInGame
+	if Script then
+		local DecompiledScript = '-- Script Search Tool | reggie#1000\n-- Failed to get decompile bytecode, does your exploit support decompile()?                  '..'\n\n'
+		if decompile then
+			DecompiledScript = '-- Script Search Tool | reggie#1000\n'..decompile(Script)..'\n\n'
+		end
+		ScriptsDecompiled[Script.Name] = {Script, DecompiledScript}
+		NumberOfDecompiledScripts = NumberOfDecompiledScripts + 1
+		ScriptSearchTool.Status.Text = 'Scripts Decompiled: '..tostring(NumberOfDecompiledScripts)..'/'..#ScriptsInGame
 
-	local NormalClone = ScriptSearchTool.NormalTemplate:Clone()
-	NormalClone.Name = NormalCloneName
-	NormalClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
-	NormalClone['Script Path'].Text = GetFullName(Script)..'\n\n\n'
-	NormalClone.Parent = ScriptSearchTool.Results
-	if ScriptSearchTool.Search.Text == "" then
-		NormalClone.Visible = true
-	end
+		local NormalClone = ScriptSearchTool.NormalTemplate:Clone()
+		NormalClone.Name = NormalCloneName
+		NormalClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
+		NormalClone['Script Path'].Text = GetFullName(Script)..'\n\n\n\n'
+		NormalClone.Parent = ScriptSearchTool.Results
+		if ScriptSearchTool.Search.Text == "" then
+			NormalClone.Visible = true
+		end
 
-	NormalClone.View.MouseButton1Click:Connect(function()
-		ScriptSearchTool.ScriptViewer.Enabled = true
-		ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
-		local _, LineCount = ScriptSearchTool.Code.Text:gsub("\n", "")
+		NormalClone.View.MouseButton1Click:Connect(function()
+			ScriptSearchTool.ScriptViewer.Enabled = true
+			ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
+			local _, LineCount = ScriptSearchTool.Code.Text:gsub("\n", "")
+			local CurrentLine = 1
+			for i = LineCount - 1, 0, -1 do
+				CurrentLine = CurrentLine + 1
+				ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
+			end
+			ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
+			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
+			ScriptSearchTool.Lines.Size = UDim2.fromOffset(30, ScriptSearchTool.Code.TextBounds.Y + 20)
+		end)
+
+
+		local IDEClone = ScriptSearchTool.WithIDETemlate:Clone()
+		IDEClone.Name = WithIDECloneName
+		IDEClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
+		IDEClone['Script Path'].Text = GetFullName(Script)..'\n\n\n\n\n\n'
+		IDEClone.IDE.Code.Text = ScriptsDecompiled[Script.Name][2]
+		IDEClone.Parent = ScriptSearchTool.Results
+		local _, LineCount = IDEClone.IDE.Code.Text:gsub("\n", "")
 		local CurrentLine = 1
 		for i = LineCount - 1, 0, -1 do
 			CurrentLine = CurrentLine + 1
-			ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
+			IDEClone.IDE.Code.Text = IDEClone.IDE.Code.Text..'\n'..tostring(CurrentLine)
 		end
-		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
-		ScriptSearchTool.Lines.Size = UDim2.new(0, 30, 0, ScriptSearchTool.IDE.Code.TextBounds.Y - 5)
-		ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
-	end)
 
-
-	local IDEClone = ScriptSearchTool.WithIDETemlate:Clone()
-	IDEClone.Name = WithIDECloneName
-	IDEClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
-	IDEClone['Script Path'].Text = GetFullName(Script)..'\n\n\n\n\n\n'
-	IDEClone.IDE.Code.Text = ScriptsDecompiled[Script.Name][2]
-	IDEClone.Parent = ScriptSearchTool.Results
-	local _, LineCount = IDEClone.IDE.Code.Text:gsub("\n", "")
-	local CurrentLine = 1
-	for i = LineCount - 1, 0, -1 do
-		CurrentLine = CurrentLine + 1
-		IDEClone.IDE.Code.Text = IDEClone.IDE.Code.Text..'\n'..tostring(CurrentLine)
+		IDEClone.View.MouseButton1Click:Connect(function()
+			ScriptSearchTool.ScriptViewer.Enabled = true
+			ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
+			ScriptSearchTool.Code.Size = UDim2.new(ScriptSearchTool.Code.Size)
+			local _, LineCount = ScriptSearchTool.Code.Text:gsub("\n", "")
+			local CurrentLine = 1
+			for i = LineCount - 1, 0, -1 do
+				CurrentLine = CurrentLine + 1
+				ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
+			end
+			ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
+			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
+			ScriptSearchTool.Lines.Size = UDim2.fromOffset(30, ScriptSearchTool.Code.TextBounds.Y + 20)
+		end)
 	end
-
-	IDEClone.View.MouseButton1Click:Connect(function()
-		ScriptSearchTool.ScriptViewer.Enabled = true
-		ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
-		ScriptSearchTool.Code.Size = UDim2.new(ScriptSearchTool.Code.Size)
-		local _, LineCount = ScriptSearchTool.Code.Text:gsub("\n", "")
-		local CurrentLine = 1
-		for i = LineCount - 1, 0, -1 do
-			CurrentLine = CurrentLine + 1
-			ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
-		end
-		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
-		ScriptSearchTool.Lines.Size = UDim2.new(0, 30, 0, ScriptSearchTool.IDE.AbsoluteWindowSize.Y - 5)
-		ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
-	end)
-end
 end
 
 ScriptSearchTool.Start.MouseButton1Click:Connect(function()
-    
+
 	local GameDescendants = game:GetDescendants()
-    
+
 	ScriptSearchTool.Start.Visible = false
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
-		
-for i,v in pairs(GameDescendants) do
-	if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
-		if v:IsA('LocalScript') or v:IsA('ModuleScript') then
-			AddScript(v)
+
+	for i,v in pairs(GameDescendants) do
+		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
+			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
+				AddScript(v)
+			end
 		end
 	end
-end
-		
+
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
 	ScriptSearchTool.Start.Visible = false
 	for i,v in pairs(ScriptsInGame) do
@@ -971,17 +971,17 @@ ScriptSearchTool.Refresh.MouseButton1Click:Connect(function()
 		end
 	end
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
-		
+
 	local GameDescendants = game:GetDescendants()
-		
-for i,v in pairs(GameDescendants) do
-	if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
-		if v:IsA('LocalScript') or v:IsA('ModuleScript') then
-			AddScript(v)
+
+	for i,v in pairs(GameDescendants) do
+		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
+			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
+				AddScript(v)
+			end
 		end
 	end
-end
-		
+
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
 	ScriptSearchTool.Start.Visible = false
 	for i,v in pairs(ScriptsInGame) do
