@@ -14,7 +14,7 @@ Script:
 ```lua
 -- Script Search Tool | reggie#1000 --
 
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/Nextrixcs/Script-Search-Tool/main/Script%20Search%20Tool.lua'),true))()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Nextrixcs/Script-Search-Tool/main/ScriptSearchToolLoadstring.lua'),true))()
 ```
 _________________________
 If you have any questions or concerns, please feel free to contact me on my Discord , reggie#1000.
