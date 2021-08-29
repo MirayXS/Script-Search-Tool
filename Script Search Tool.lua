@@ -1099,7 +1099,7 @@ ScriptSearchTool.SaveButton.MouseButton1Click:Connect(function()
 			SavedMsg.TextColor3 = Color3.fromRGB(235,235,235)
 			SavedMsg.Font = Enum.Font.GothamBold
 			SavedMsg.AnchorPoint = Vector2.new(0.5,0)
-			SavedMsg.Size = UDim2.fromOffset(400,50)
+			SavedMsg.Size = UDim2.fromOffset(650,50)
 			SavedMsg.Position = UDim2.new(0.5,0,0,35)
 			SavedMsg.AutomaticSize = Enum.AutomaticSize.XY
 			SavedMsg.Parent = SavedMsgGUI
@@ -1125,7 +1125,7 @@ ScriptSearchTool.SaveButton.MouseButton1Click:Connect(function()
 			SavedMsgGUI.Parent = game:GetService('CoreGui')
 
 			local SavedMsg = Instance.new('TextLabel')
-			SavedMsg.Text = "Failed to save, your exploit may not support writefile()\nError Message: "..err
+			SavedMsg.Text = '  Failed to save, your exploit may not support writefile\nError Message: '..err..'  '
 			SavedMsg.TextSize = 24
 			SavedMsg.TextWrapped = true
 			SavedMsg.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
@@ -1133,7 +1133,7 @@ ScriptSearchTool.SaveButton.MouseButton1Click:Connect(function()
 			SavedMsg.TextColor3 = Color3.fromRGB(235,235,235)
 			SavedMsg.Font = Enum.Font.GothamBold
 			SavedMsg.AnchorPoint = Vector2.new(0.5,0)
-			SavedMsg.Size = UDim2.fromOffset(400,50)
+			SavedMsg.Size = UDim2.fromOffset(650,50)
 			SavedMsg.Position = UDim2.new(0.5,0,0,35)
 			SavedMsg.AutomaticSize = Enum.AutomaticSize.XY
 			SavedMsg.Parent = SavedMsgGUI
