@@ -1062,13 +1062,15 @@ ScriptSearchTool.SaveButton.MouseButton1Click:Connect(function()
 
 			local FolderNumberThatDoesntExist = 1
 			local PlaceName = game.PlaceId
-			local FolderName = 'SST_'..PlaceName..'_Scripts_'..tostring(FolderNumberThatDoesntExist)
 			
 			local Success, GameData = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
 			if Success then
 				PlaceName = GameData.Name
 			end
 
+			local CompressedName, CompressedCounter = PlaceName:gsub('%s+', '')
+			local FolderName = 'SST_'..CompressedName..'_Scripts_'..tostring(FolderNumberThatDoesntExist)
+					
 			while isfolder('Script Search Tool - Script Files\\'..FolderName) == true do
 				FolderNumberThatDoesntExist = FolderNumberThatDoesntExist + 1
 				wait()
