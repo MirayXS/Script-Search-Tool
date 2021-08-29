@@ -615,7 +615,6 @@ ScriptSearchTool.ScriptName_2.TextColor3 = Color3.fromRGB(235, 235, 235)
 ScriptSearchTool.ScriptName_2.TextSize = 14.000
 ScriptSearchTool.ScriptName_2.TextXAlignment = Enum.TextXAlignment.Left
 ScriptSearchTool.ScriptName_2.TextYAlignment = Enum.TextYAlignment.Top
-ScriptSearchTool.ScriptName_2.AutomaticSize = Enum.AutomaticSize.Y
 
 ScriptSearchTool.ScriptPath.Name = "Script Path"
 ScriptSearchTool.ScriptPath.Parent = ScriptSearchTool.NormalTemplate
@@ -632,6 +631,7 @@ ScriptSearchTool.ScriptPath.TextSize = 14.000
 ScriptSearchTool.ScriptPath.TextWrapped = true
 ScriptSearchTool.ScriptPath.TextXAlignment = Enum.TextXAlignment.Left
 ScriptSearchTool.ScriptPath.TextYAlignment = Enum.TextYAlignment.Top
+ScriptSearchTool.ScriptPath.AutomaticSize = Enum.AutomaticSize.Y
 
 ScriptSearchTool.View.Name = "View"
 ScriptSearchTool.View.Parent = ScriptSearchTool.NormalTemplate
@@ -756,6 +756,7 @@ ScriptSearchTool.ScriptPath_2.TextWrapped = true
 ScriptSearchTool.ScriptPath_2.TextXAlignment = Enum.TextXAlignment.Left
 ScriptSearchTool.ScriptPath_2.TextYAlignment = Enum.TextYAlignment.Top
 ScriptSearchTool.ScriptPath_2.AutomaticSize = Enum.AutomaticSize.Y
+ScriptSearchTool.ScriptPath_2.AutomaticSize = Enum.AutomaticSize.Y
 
 ScriptSearchTool.ScriptName_3.Name = "Script Name"
 ScriptSearchTool.ScriptName_3.Parent = ScriptSearchTool.WithIDETemlate
@@ -843,7 +844,7 @@ if Script then
 	local NormalClone = ScriptSearchTool.NormalTemplate:Clone()
 	NormalClone.Name = NormalCloneName
 	NormalClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
-	NormalClone['Script Path'].Text = GetFullName(Script)
+	NormalClone['Script Path'].Text = GetFullName(Script)..'\n\n\n'
 	NormalClone.Parent = ScriptSearchTool.Results
 	if ScriptSearchTool.Search.Text == "" then
 		NormalClone.Visible = true
@@ -867,7 +868,7 @@ if Script then
 	local IDEClone = ScriptSearchTool.WithIDETemlate:Clone()
 	IDEClone.Name = WithIDECloneName
 	IDEClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
-	IDEClone['Script Path'].Text = GetFullName(Script)
+	IDEClone['Script Path'].Text = GetFullName(Script)..'\n\n\n\n\n\n'
 	IDEClone.IDE.Code.Text = ScriptsDecompiled[Script.Name][2]
 	IDEClone.Parent = ScriptSearchTool.Results
 	local _, LineCount = IDEClone.IDE.Code.Text:gsub("\n", "")
