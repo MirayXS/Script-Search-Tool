@@ -792,6 +792,7 @@ ScriptSearchTool.ScriptName_3.TextColor3 = Color3.fromRGB(235, 235, 235)
 ScriptSearchTool.ScriptName_3.TextSize = 14.000
 ScriptSearchTool.ScriptName_3.TextXAlignment = Enum.TextXAlignment.Left
 ScriptSearchTool.ScriptName_3.TextYAlignment = Enum.TextYAlignment.Top
+ScriptSearchTool.ScriptName_3.AutomaticSize = Enum.AutomaticSize.Y
 
 
 -- scrikpting and stuffs
