@@ -896,12 +896,32 @@ end
 
 ScriptSearchTool.Start.MouseButton1Click:Connect(function()
 	ScriptSearchTool.Start.Visible = false
+	for i,v in pairs(ScriptsDecompiled) do
+		table.remove(ScriptsDecompiled, #ScriptsDecompiled)
+	end
 	for i,v in pairs(ScriptsInGame) do
-		if SearchCancelled == false then
-			AddResult(v)
-		else
-			break
+		table.remove(ScriptsInGame, #ScriptsInGame)
+	end
+	wait(0.5)
+	for i,v in pairs(ScriptSearchTool.Results:GetChildren()) do
+		if v:IsA('Frame') then
+			if v.Name == NormalCloneName or v.Name == WithIDECloneName then
+				v:Destroy()
+			end
 		end
+	end
+	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
+	for i,v in pairs(GameDescendants) do
+		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
+			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
+				AddScript(v)
+			end
+		end
+	end
+	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
+	ScriptSearchTool.Start.Visible = false
+	for i,v in pairs(ScriptsInGame) do
+		AddResult(v)
 	end
 end)
 
