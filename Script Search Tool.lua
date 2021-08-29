@@ -4,7 +4,7 @@ local GameDescendants = game:GetDescendants()
 
 local ScriptsInGame = {}
 local ScriptsDecompiled = {}
-	
+
 local NumberOfDecompiledScripts = 0
 local SearchCancelled = false
 
@@ -839,7 +839,7 @@ local function AddResult(Script)
 	if ScriptSearchTool.Search.Text == "" then
 		NormalClone.Visible = true
 	end
-	
+
 	NormalClone.View.MouseButton1Click:Connect(function()
 		ScriptSearchTool.ScriptViewer.Enabled = true
 		ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
@@ -851,9 +851,10 @@ local function AddResult(Script)
 		end
 		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua'
 		ScriptSearchTool.Lines.Size = UDim2.new(0, 30, 0, ScriptSearchTool.IDE.Code.TextBounds.Y - 5)
+		ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
 	end)
-	
-	
+
+
 	local IDEClone = ScriptSearchTool.WithIDETemlate:Clone()
 	IDEClone.Name = WithIDECloneName
 	IDEClone['Script Name'].Text = Script.Name..'.lua'
@@ -866,7 +867,7 @@ local function AddResult(Script)
 		CurrentLine = CurrentLine + 1
 		IDEClone.IDE.Code.Text = IDEClone.IDE.Code.Text..'\n'..tostring(CurrentLine)
 	end
-	
+
 	IDEClone.View.MouseButton1Click:Connect(function()
 		ScriptSearchTool.ScriptViewer.Enabled = true
 		ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
@@ -1031,7 +1032,7 @@ ScriptSearchTool.Search:GetPropertyChangedSignal('Text'):Connect(function()
 					FakeText.Text = ""
 					FakeLines.Parent = v.IDE
 					FakeText.Parent = v.IDE
-					
+
 					local CurrentLine = 0
 					for i in string.gmatch(v.IDE.Code.Text, "[^\r\n]+") do
 						CurrentLine = CurrentLine + 1
@@ -1040,7 +1041,7 @@ ScriptSearchTool.Search:GetPropertyChangedSignal('Text'):Connect(function()
 							FakeText.Text = FakeText.Text..i..'\n'
 						end
 					end
-					
+
 					FakeText.Visible = true
 					FakeLines.Visible = true
 					v.Visible = true
