@@ -882,7 +882,7 @@ local function AddResult(Script)
 				ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
 			end
 			ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
-			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
+			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 30, ScriptSearchTool.Code.TextBounds.Y + 30)
 			ScriptSearchTool.Lines.Size = UDim2.fromOffset(30, ScriptSearchTool.Code.TextBounds.Y + 20)
 		end)
 
@@ -911,7 +911,7 @@ local function AddResult(Script)
 				ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
 			end
 			ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
-			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
+			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 30, ScriptSearchTool.Code.TextBounds.Y + 30)
 			ScriptSearchTool.Lines.Size = UDim2.fromOffset(30, ScriptSearchTool.Code.TextBounds.Y + 20)
 		end)
 	end
