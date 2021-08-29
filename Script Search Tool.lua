@@ -903,8 +903,10 @@ end
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
 	ScriptSearchTool.Start.Visible = false
 	for i,v in pairs(ScriptsInGame) do
-		if v ~= nil then
+		if v ~= nil and SearchCancelled == false then
 			AddResult(v)
+		else
+			break
 		end
 	end
 end)
