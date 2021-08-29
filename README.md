@@ -9,6 +9,7 @@ This is a great too for script developers who want to be able to make scripts us
 - It decompiles everything first, so that you can easily swap between scripts unlike Dex where you have to often wait for it to finish decompiling every script.
 _________________________
 [Loadstring Download](https://github.com/Nextrixcs/Script-Search-Tool/releases/download/Loadstring/ScriptSearchToolLoadstring.lua)
+
 Script:
 ```lua
 -- Script Search Tool | reggie#1000 --
