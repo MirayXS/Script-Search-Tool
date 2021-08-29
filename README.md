@@ -7,6 +7,7 @@ This is a great tool for script developers who want to be able to make scripts u
 - Copy code on-the-fly, with our built in copy button in our script viewer.
 - Sleek GUI!
 - It decompiles everything first, so that you can easily swap between scripts unlike Dex where you have to often wait for it to finish decompiling every script.
+- Save everything to one easy to access folder, allowing you to edit scripts in a program like VSCode.
 _________________________
 [Loadstring Download](https://github.com/Nextrixcs/Script-Search-Tool/releases/download/Loadstring/ScriptSearchToolLoadstring.lua)
 
