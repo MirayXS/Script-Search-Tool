@@ -921,7 +921,9 @@ ScriptSearchTool.Start.MouseButton1Click:Connect(function()
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
 	ScriptSearchTool.Start.Visible = false
 	for i,v in pairs(ScriptsInGame) do
-		AddResult(v)
+		if v ~= nil then
+			AddResult(v)
+		end
 	end
 end)
 
@@ -995,7 +997,9 @@ ScriptSearchTool.Refresh.MouseButton1Click:Connect(function()
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
 	ScriptSearchTool.Start.Visible = false
 	for i,v in pairs(ScriptsInGame) do
-		AddResult(v)
+		if v ~= nil then
+			AddResult(v)
+		end
 	end
 end)
 
