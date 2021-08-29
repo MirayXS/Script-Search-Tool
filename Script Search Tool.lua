@@ -880,6 +880,7 @@ local function AddResult(Script)
 		end
 		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua'
 		ScriptSearchTool.Lines.Size = UDim2.new(0, 30, 0, ScriptSearchTool.IDE.AbsoluteWindowSize.Y - 5)
+		ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
 	end)
 end
 
