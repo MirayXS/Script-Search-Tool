@@ -4,8 +4,6 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-local GameDescendants = game:GetDescendants()
-
 local ScriptsInGame = {}
 local ScriptsDecompiled = {}
 
@@ -888,11 +886,24 @@ end
 end
 
 ScriptSearchTool.Start.MouseButton1Click:Connect(function()
+    
+    local GameDescendants = {
+    game:GetService('Workspace'):GetDescendants(),
+    game:GetService('Players'):GetDescendants(),
+    game:GetService('Lighting'):GetDescendants(),
+    game:GetService('ReplicatedFirst'):GetDescendants(),
+    game:GetService('ReplicatedStorage'):GetDescendants(),
+    game:GetService('StarterGui'):GetDescendants(),
+    game:GetService('StarterPack'):GetDescendants(),
+    game:GetService('StarterPlayer'):GetDescendants(),
+    game:GetService('Chat'):GetDescendants(),
+    }
+    
 	ScriptSearchTool.Start.Visible = false
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
-	for i,v in pairs(GameDescendants) do
-		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
-			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
+	for _,v in pairs(GameDescendants) do
+		for _,script in pairs(v) do
+			if script:IsA('LocalScript') or script:IsA('ModuleScript') then
 				AddScript(v)
 			end
 		end
@@ -966,9 +977,20 @@ ScriptSearchTool.Refresh.MouseButton1Click:Connect(function()
 		end
 	end
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
-	for i,v in pairs(GameDescendants) do
-		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
-			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
+	local GameDescendants = {
+    game:GetService('Workspace'):GetDescendants(),
+    game:GetService('Players'):GetDescendants(),
+    game:GetService('Lighting'):GetDescendants(),
+    game:GetService('ReplicatedFirst'):GetDescendants(),
+    game:GetService('ReplicatedStorage'):GetDescendants(),
+    game:GetService('StarterGui'):GetDescendants(),
+    game:GetService('StarterPack'):GetDescendants(),
+    game:GetService('StarterPlayer'):GetDescendants(),
+    game:GetService('Chat'):GetDescendants(),
+    }
+	for _,v in pairs(GameDescendants) do
+		for _,script in pairs(v) do
+			if script:IsA('LocalScript') or script:IsA('ModuleScript') then
 				AddScript(v)
 			end
 		end
