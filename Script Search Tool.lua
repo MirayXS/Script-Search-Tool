@@ -3,7 +3,8 @@
 local GameDescendants = game:GetDescendants()
 
 local ScriptsInGame = {}
-local ScriptsDecompiled = {}
+local ScriptsDecompiled = {
+	
 local NumberOfDecompiledScripts = 0
 local SearchCancelled = false
 
@@ -835,7 +836,7 @@ local function AddResult(Script)
 	NormalClone['Script Name'].Text = Script.Name..'.lua'
 	NormalClone['Script Path'].Text = GetFullName(Script)
 	NormalClone.Parent = ScriptSearchTool.Results
-	if ScriptSearchTool.Search.text == "" then
+	if ScriptSearchTool.Search.Text == "" then
 		NormalClone.Visible = true
 	end
 	
