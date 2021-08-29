@@ -1,5 +1,9 @@
 -- Script Search Tool | reggie#1000 --
 
+if not game:IsLoaded() then
+	game.Loaded:Wait()
+end
+
 local GameDescendants = game:GetDescendants()
 
 local ScriptsInGame = {}
