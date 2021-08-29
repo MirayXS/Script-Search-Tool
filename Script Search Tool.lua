@@ -3,7 +3,7 @@
 local GameDescendants = game:GetDescendants()
 
 local ScriptsInGame = {}
-local ScriptsDecompiled = {)
+local ScriptsDecompiled = {}
 	
 local NumberOfDecompiledScripts = 0
 local SearchCancelled = false
