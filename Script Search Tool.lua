@@ -422,6 +422,36 @@ ScriptSearchTool.Icon_4.Size = UDim2.new(0, 22, 0, 22)
 ScriptSearchTool.Icon_4.ZIndex = 4
 ScriptSearchTool.Icon_4.Image = "http://www.roblox.com/asset/?id=6034818379"
 
+ScriptSearchTool.SaveButton = Instance.new('TextButton')
+ScriptSearchTool.SaveButton.Name = "Minimize"
+ScriptSearchTool.SaveButton.Parent = ScriptSearchTool.Top_3
+ScriptSearchTool.SaveButton.AnchorPoint = Vector2.new(0, 0.5)
+ScriptSearchTool.SaveButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ScriptSearchTool.SaveButton.BackgroundTransparency = 1.000
+ScriptSearchTool.SaveButton.BorderSizePixel = 0
+ScriptSearchTool.SaveButton.Position = UDim2.new(1, -90, 0.5, 0)
+ScriptSearchTool.SaveButton.Size = UDim2.new(0, 24, 0, 24)
+ScriptSearchTool.SaveButton.ZIndex = 3
+ScriptSearchTool.SaveButton.Font = Enum.Font.SourceSans
+ScriptSearchTool.SaveButton.Text = ""
+ScriptSearchTool.SaveButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+ScriptSearchTool.SaveButton.TextSize = 14.000
+
+ScriptSearchTool.UICorner_Save = Instance.new('UICorner')
+ScriptSearchTool.UICorner_Save.CornerRadius = UDim.new(0, 4)
+ScriptSearchTool.UICorner_Save.Parent = ScriptSearchTool.SaveButton
+
+ScriptSearchTool.Icon_Save = Instance.new('ImageLabel')
+ScriptSearchTool.Icon_Save.Name = "Icon"
+ScriptSearchTool.Icon_Save.Parent = ScriptSearchTool.SaveButton
+ScriptSearchTool.Icon_Save.AnchorPoint = Vector2.new(0.5, 0.5)
+ScriptSearchTool.Icon_Save.BackgroundTransparency = 1.000
+ScriptSearchTool.Icon_Save.BorderSizePixel = 0
+ScriptSearchTool.Icon_Save.Position = UDim2.new(0.5, 0, 0.5, 0)
+ScriptSearchTool.Icon_Save.Size = UDim2.new(0, 22, 0, 22)
+ScriptSearchTool.Icon_Save.ZIndex = 4
+ScriptSearchTool.Icon_Save.Image = "http://www.roblox.com/asset/?id=6035067857"
+
 ScriptSearchTool.Accent_3.Name = "Accent"
 ScriptSearchTool.Accent_3.Parent = ScriptSearchTool.Top_3
 ScriptSearchTool.Accent_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -768,6 +798,7 @@ ScriptSearchTool.ScriptName_3.TextYAlignment = Enum.TextYAlignment.Top
 
 local UserInputService = game:GetService('UserInputService')
 local TweenService = game:GetService('TweenService')
+local MarketplaceService = game:GetService("MarketplaceService")
 
 function Drag(Frame)
 	local dragToggle = nil
@@ -833,9 +864,9 @@ local function AddResult(Script)
 
 		local NormalClone = ScriptSearchTool.NormalTemplate:Clone()
 		NormalClone.Name = NormalCloneName
+		NormalClone.Parent = ScriptSearchTool.Results
 		NormalClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
 		NormalClone['Script Path'].Text = GetFullName(Script)..'\n\n\n\n'
-		NormalClone.Parent = ScriptSearchTool.Results
 		if ScriptSearchTool.Search.Text == "" then
 			NormalClone.Visible = true
 		end
@@ -857,10 +888,10 @@ local function AddResult(Script)
 
 		local IDEClone = ScriptSearchTool.WithIDETemlate:Clone()
 		IDEClone.Name = WithIDECloneName
+		IDEClone.Parent = ScriptSearchTool.Results
 		IDEClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
 		IDEClone['Script Path'].Text = GetFullName(Script)..'\n\n\n\n\n\n'
 		IDEClone.IDE.Code.Text = ScriptsDecompiled[Script.Name][2]
-		IDEClone.Parent = ScriptSearchTool.Results
 		local _, LineCount = IDEClone.IDE.Code.Text:gsub("\n", "")
 		local CurrentLine = 1
 		for i = LineCount - 1, 0, -1 do
@@ -1010,6 +1041,7 @@ ScriptSearchTool.Clear.MouseButton1Click:Connect(function()
 		end
 	end
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
+	local GameDescendants = game:GetDescendants()
 	for i,v in pairs(GameDescendants) do
 		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
 			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
@@ -1018,6 +1050,105 @@ ScriptSearchTool.Clear.MouseButton1Click:Connect(function()
 		end
 	end
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
+end)
+
+ScriptSearchTool.SaveButton.MouseButton1Click:Connect(function()
+	if NumberOfDecompiledScripts > 0 then
+		local success, err = pcall(function()
+			if not isfolder('Script Search Tool - Script Files') then
+				makefolder('Script Search Tool - Script Files')
+			end
+
+			local FolderNumberThatDoesntExist = 1
+			local PlaceName = game.PlaceId
+			local FolderName = 'SST_'..PlaceName..'_Scripts_'..tostring(FolderNumberThatDoesntExist)
+			
+			local Success, GameData = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
+			if Success then
+				PlaceName = GameData.Name
+			end
+
+			while isfolder('Script Search Tool - Script Files\\'..FolderName) == true do
+				FolderNumberThatDoesntExist = FolderNumberThatDoesntExist + 1
+				wait()
+			end
+
+			makefolder('Script Search Tool - Script Files\\'..FolderName)
+			if isfolder('Script Search Tool - Script Files\\'..FolderName) then
+				local CurrentFileNumber = 1
+				for i,v in pairs(ScriptsDecompiled) do
+					writefile('Script Search Tool - Script Files\\'..FolderName..'\\'..i..'_'..tostring(CurrentFileNumber)..'.lua', '-- In-Game location: '..GetFullName(v[1])..'\n'..v[2])
+					CurrentFileNumber = CurrentFileNumber + 1
+				end
+			end
+
+			local SavedMsgGUI = Instance.new('ScreenGui')
+			pcall(function() syn.protect_gui(SavedMsgGUI) end)
+			SavedMsgGUI.DisplayOrder = 2147483647
+			SavedMsgGUI.Name = math.random(1,2147483647)
+			SavedMsgGUI.ResetOnSpawn = false
+			SavedMsgGUI.IgnoreGuiInset = true
+			SavedMsgGUI.Parent = game:GetService('CoreGui')
+
+			local SavedMsg = Instance.new('TextLabel')
+			SavedMsg.Text = '  Saved scripts folder to: Script Filter Tool - Script Files\\'..FolderName..'  '
+			SavedMsg.TextSize = 24
+			SavedMsg.TextWrapped = true
+			SavedMsg.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+			SavedMsg.BackgroundTransparency = 0.4
+			SavedMsg.TextColor3 = Color3.fromRGB(235,235,235)
+			SavedMsg.Font = Enum.Font.GothamBold
+			SavedMsg.AnchorPoint = Vector2.new(0.5,0)
+			SavedMsg.Size = UDim2.fromOffset(400,50)
+			SavedMsg.Position = UDim2.new(0.5,0,0,35)
+			SavedMsg.AutomaticSize = Enum.AutomaticSize.XY
+			SavedMsg.Parent = SavedMsgGUI
+
+			local UICorner = Instance.new('UICorner')
+			UICorner.Name = math.random(1,2147483647)
+			UICorner.CornerRadius = UDim.new(0,4)
+			UICorner.Parent = SavedMsg
+
+			wait(3.5)
+
+			SavedMsgGUI:Destroy()
+				
+		end)
+		if not success and err then
+			
+			local SavedMsgGUI = Instance.new('ScreenGui')
+			pcall(function() syn.protect_gui(SavedMsgGUI) end)
+			SavedMsgGUI.DisplayOrder = 2147483647
+			SavedMsgGUI.Name = math.random(1,2147483647)
+			SavedMsgGUI.ResetOnSpawn = false
+			SavedMsgGUI.IgnoreGuiInset = true
+			SavedMsgGUI.Parent = game:GetService('CoreGui')
+
+			local SavedMsg = Instance.new('TextLabel')
+			SavedMsg.Text = "Failed to save, your exploit may not support writefile()\nError Message: "..err
+			SavedMsg.TextSize = 24
+			SavedMsg.TextWrapped = true
+			SavedMsg.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+			SavedMsg.BackgroundTransparency = 0.4
+			SavedMsg.TextColor3 = Color3.fromRGB(235,235,235)
+			SavedMsg.Font = Enum.Font.GothamBold
+			SavedMsg.AnchorPoint = Vector2.new(0.5,0)
+			SavedMsg.Size = UDim2.fromOffset(400,50)
+			SavedMsg.Position = UDim2.new(0.5,0,0,35)
+			SavedMsg.AutomaticSize = Enum.AutomaticSize.XY
+			SavedMsg.Parent = SavedMsgGUI
+
+			local UICorner = Instance.new('UICorner')
+			UICorner.Name = math.random(1,2147483647)
+			UICorner.CornerRadius = UDim.new(0,4)
+			UICorner.Parent = SavedMsg
+
+			wait(3.5)
+
+			SavedMsgGUI:Destroy()
+			
+		end
+	end
 end)
 
 ScriptSearchTool.Search:GetPropertyChangedSignal('Text'):Connect(function()
