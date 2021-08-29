@@ -813,6 +813,7 @@ Drag(ScriptSearchTool.Main)
 Drag(ScriptSearchTool.Main_2)
 
 local function GetFullName(x)
+if x.Name then
 	local t = {}
 	while x ~= game do
 		local name = x.Name:gsub('[\"]', '\\%0')
@@ -820,6 +821,9 @@ local function GetFullName(x)
 		x = x.Parent
 	end
 	return 'game["'..table.concat(t, '"]["')..'"]'
+end
+else
+	return '[Unable to get script path.]'
 end
 
 local function AddResult(Script)
