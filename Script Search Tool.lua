@@ -850,7 +850,7 @@ if Script then
 			CurrentLine = CurrentLine + 1
 			ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
 		end
-		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua'
+		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
 		ScriptSearchTool.Lines.Size = UDim2.new(0, 30, 0, ScriptSearchTool.IDE.Code.TextBounds.Y - 5)
 		ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
 	end)
@@ -858,7 +858,7 @@ if Script then
 
 	local IDEClone = ScriptSearchTool.WithIDETemlate:Clone()
 	IDEClone.Name = WithIDECloneName
-	IDEClone['Script Name'].Text = Script.Name..'.lua'
+	IDEClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
 	IDEClone['Script Path'].Text = GetFullName(Script)
 	IDEClone.IDE.Code.Text = ScriptsDecompiled[Script.Name][2]
 	IDEClone.Parent = ScriptSearchTool.Results
@@ -879,7 +879,7 @@ if Script then
 			CurrentLine = CurrentLine + 1
 			ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
 		end
-		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua'
+		ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
 		ScriptSearchTool.Lines.Size = UDim2.new(0, 30, 0, ScriptSearchTool.IDE.AbsoluteWindowSize.Y - 5)
 		ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
 	end)
