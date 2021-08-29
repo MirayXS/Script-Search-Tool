@@ -819,7 +819,7 @@ Drag(ScriptSearchTool.Main_2)
 local function GetFullName(x)
 if x.Name then
 	local t = {}
-	while x ~= game do
+	while x ~= game and x ~= nil do
 		local name = x.Name:gsub('[\"]', '\\%0')
 		table.insert(t, 1, name)
 		x = x.Parent
