@@ -823,6 +823,7 @@ local function GetFullName(x)
 end
 
 local function AddResult(Script)
+if Script then
 	local DecompiledScript = '-- Script Search Tool | reggie#1000\n-- Failed to get decompile bytecode, does your exploit support decompile()?                  '..'\n\n'
 	if decompile then
 		DecompiledScript = '-- Script Search Tool | reggie#1000\n'..decompile(Script)..'\n\n'
@@ -833,7 +834,7 @@ local function AddResult(Script)
 
 	local NormalClone = ScriptSearchTool.NormalTemplate:Clone()
 	NormalClone.Name = NormalCloneName
-	NormalClone['Script Name'].Text = Script.Name..'.lua'
+	NormalClone['Script Name'].Text = Script.Name..'.lua ('..Script.ClassName..')'
 	NormalClone['Script Path'].Text = GetFullName(Script)
 	NormalClone.Parent = ScriptSearchTool.Results
 	if ScriptSearchTool.Search.Text == "" then
@@ -882,6 +883,7 @@ local function AddResult(Script)
 		ScriptSearchTool.Lines.Size = UDim2.new(0, 30, 0, ScriptSearchTool.IDE.AbsoluteWindowSize.Y - 5)
 		ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 20, ScriptSearchTool.Code.TextBounds.Y + 20)
 	end)
+end
 end
 
 ScriptSearchTool.Start.MouseButton1Click:Connect(function()
