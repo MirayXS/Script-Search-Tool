@@ -825,9 +825,9 @@ if x.Name then
 		x = x.Parent
 	end
 	return 'game["'..table.concat(t, '"]["')..'"]'
-end
 else
 	return '[Unable to get script path.]'
+end
 end
 
 local function AddResult(Script)
