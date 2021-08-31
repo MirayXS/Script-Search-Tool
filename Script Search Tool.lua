@@ -1080,9 +1080,15 @@ ScriptSearchTool.SaveButton.MouseButton1Click:Connect(function()
 			if isfolder('Script Search Tool - Script Files\\'..FolderName) then
 				local CurrentFileNumber = 1
 				for i,v in pairs(ScriptsDecompiled) do
-					writefile('Script Search Tool - Script Files\\'..FolderName..'\\'..i..'_'..tostring(CurrentFileNumber)..'.lua', '-- In-Game location: '..GetFullName(v[1])..'\n'..v[2])
-					CurrentFileNumber = CurrentFileNumber + 1
-				end
+                                        local FileCreateSuccess, FileCreateError = pcall(function()
+					         writefile('Script Search Tool - Script Files\\'..FolderName..'\\'..i..'_'..tostring(CurrentFileNumber)..'.lua', '-- In-Game location: '..GetFullName(v[1])..'\n'..v[2])
+					         CurrentFileNumber = CurrentFileNumber + 1
+                                        end)
+                                        if not FileCreateSuccess and FileCreateError then
+                                                 writefile('Script Search Tool - Script Files\\'..FolderName..'\\FileNameError'..'_'..tostring(CurrentFileNumber)..'.lua', '-- In-Game location: '..GetFullName(v[1])..'\n'..v[2])
+                                                 CurrentFileNumber = CurrentFileNumber + 1
+                                        end
+	        		end
 			end
 
 			local SavedMsgGUI = Instance.new('ScreenGui')
