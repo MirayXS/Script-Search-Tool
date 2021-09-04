@@ -15,7 +15,7 @@ local WithIDECloneName = 'With IDE Clone'
 
 local function AddScript(Script)
 	local ScriptAlreadyExists = false
-	for i,v in ipairs(ScriptsInGame) do
+	for i,v in pairs(ScriptsInGame) do
 		if v == Script then
 			ScriptAlreadyExists = true
 		end
@@ -924,7 +924,7 @@ ScriptSearchTool.Start.MouseButton1Click:Connect(function()
 	ScriptSearchTool.Start.Visible = false
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
 
-	for i,v in ipairs(GameDescendants) do
+	for i,v in pairs(GameDescendants) do
 		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
 			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
 				AddScript(v)
@@ -934,7 +934,7 @@ ScriptSearchTool.Start.MouseButton1Click:Connect(function()
 
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
 	ScriptSearchTool.Start.Visible = false
-	for i,v in ipairs(ScriptsInGame) do
+	for i,v in pairs(ScriptsInGame) do
 		if v ~= nil then
 			if SearchCancelled == false then
 				AddResult(v)
@@ -990,14 +990,14 @@ end)
 
 ScriptSearchTool.Refresh.MouseButton1Click:Connect(function()
 	SearchCancelled = true
-	for i,v in ipairs(ScriptsDecompiled) do
+	for i,v in pairs(ScriptsDecompiled) do
 		table.remove(ScriptsDecompiled, #ScriptsDecompiled)
 	end
-	for i,v in ipairs(ScriptsInGame) do
+	for i,v in pairs(ScriptsInGame) do
 		table.remove(ScriptsInGame, #ScriptsInGame)
 	end
 	wait(0.5)
-	for i,v in ipairs(ScriptSearchTool.Results:GetChildren()) do
+	for i,v in pairs(ScriptSearchTool.Results:GetChildren()) do
 		if v:IsA('Frame') then
 			if v.Name == NormalCloneName or v.Name == WithIDECloneName then
 				v:Destroy()
@@ -1008,7 +1008,7 @@ ScriptSearchTool.Refresh.MouseButton1Click:Connect(function()
 
 	local GameDescendants = game:GetDescendants()
 
-	for i,v in ipairs(GameDescendants) do
+	for i,v in pairs(GameDescendants) do
 		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
 			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
 				AddScript(v)
@@ -1018,7 +1018,7 @@ ScriptSearchTool.Refresh.MouseButton1Click:Connect(function()
 
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/'..#ScriptsInGame
 	ScriptSearchTool.Start.Visible = false
-	for i,v in ipairs(ScriptsInGame) do
+	for i,v in pairs(ScriptsInGame) do
 		if v ~= nil then
 			AddResult(v)
 		end
@@ -1027,14 +1027,14 @@ end)
 
 ScriptSearchTool.Clear.MouseButton1Click:Connect(function()
 	SearchCancelled = true
-	for i,v in ipairs(ScriptsDecompiled) do
+	for i,v in pairs(ScriptsDecompiled) do
 		table.remove(ScriptsDecompiled, #ScriptsDecompiled)
 	end
-	for i,v in ipairs(ScriptsInGame) do
+	for i,v in pairs(ScriptsInGame) do
 		table.remove(ScriptsInGame, #ScriptsInGame)
 	end
 	wait(0.5)
-	for i,v in ipairs(ScriptSearchTool.Results:GetChildren()) do
+	for i,v in pairs(ScriptSearchTool.Results:GetChildren()) do
 		if v:IsA('Frame') then
 			if v.Name == NormalCloneName or v.Name == WithIDECloneName then
 				v:Destroy()
@@ -1043,7 +1043,7 @@ ScriptSearchTool.Clear.MouseButton1Click:Connect(function()
 	end
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
 	local GameDescendants = game:GetDescendants()
-	for i,v in ipairs(GameDescendants) do
+	for i,v in pairs(GameDescendants) do
 		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
 			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
 				AddScript(v)
@@ -1079,7 +1079,7 @@ ScriptSearchTool.SaveButton.MouseButton1Click:Connect(function()
 			makefolder('Script Search Tool - Script Files\\'..FolderName)
 			if isfolder('Script Search Tool - Script Files\\'..FolderName) then
 				local CurrentFileNumber = 1
-				for i,v in ipairs(ScriptsDecompiled) do
+				for i,v in pairs(ScriptsDecompiled) do
                                         local FileCreateSuccess, FileCreateError = pcall(function()
 					         writefile('Script Search Tool - Script Files\\'..FolderName..'\\'..i..'_'..tostring(CurrentFileNumber)..'.lua', '-- In-Game location: '..GetFullName(v[1])..'\n'..v[2])
 					         CurrentFileNumber = CurrentFileNumber + 1
@@ -1163,25 +1163,25 @@ end)
 ScriptSearchTool.Search:GetPropertyChangedSignal('Text'):Connect(function()
 	local NewText = ScriptSearchTool.Search.Text
 	if NewText == "" then
-		for i,v in ipairs(ScriptSearchTool.Results:GetChildren()) do
+		for i,v in pairs(ScriptSearchTool.Results:GetChildren()) do
 			if v.Name == NormalCloneName then
 				v.Visible = true
 			end
 		end
-		for i,v in ipairs(ScriptSearchTool.Results:GetChildren()) do
+		for i,v in pairs(ScriptSearchTool.Results:GetChildren()) do
 			if v.Name == WithIDECloneName then
 				v.Visible = false
 			end
 		end
 	else
-		for i,v in ipairs(ScriptSearchTool.Results:GetChildren()) do
+		for i,v in pairs(ScriptSearchTool.Results:GetChildren()) do
 			if v.Name == NormalCloneName then
 				v.Visible = false
 			end
 		end
-		for i,v in ipairs(ScriptSearchTool.Results:GetChildren()) do
+		for i,v in pairs(ScriptSearchTool.Results:GetChildren()) do
 			if v.Name == WithIDECloneName then
-				for i,v in ipairs(v.IDE:GetChildren()) do
+				for i,v in pairs(v.IDE:GetChildren()) do
 					if v.Name == 'Fake Text' or v.Name == 'Fake Lines' then
 						v:Destroy()
 					end
