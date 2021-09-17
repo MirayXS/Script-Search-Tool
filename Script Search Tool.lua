@@ -874,6 +874,7 @@ local function AddResult(Script)
 
 		NormalClone.View.MouseButton1Click:Connect(function()
 			ScriptSearchTool.ScriptViewer.Enabled = true
+			ScriptSearchTool.Lines.Text = ''
 			ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
 			local _, LineCount = ScriptSearchTool.Code.Text:gsub("\n", "")
 			local CurrentLine = 1
@@ -924,7 +925,7 @@ ScriptSearchTool.Start.MouseButton1Click:Connect(function()
 	ScriptSearchTool.Start.Visible = false
 	ScriptSearchTool.Status.Text = 'Scripts Decompiled: 0/0'
 
-	for i,v in pairs(GameDescendants) do
+	for i,v in ipairs(GameDescendants) do
 		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
 			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
 				AddScript(v)
@@ -1008,7 +1009,7 @@ ScriptSearchTool.Refresh.MouseButton1Click:Connect(function()
 
 	local GameDescendants = game:GetDescendants()
 
-	for i,v in pairs(GameDescendants) do
+	for i,v in ipairs(GameDescendants) do
 		if v:IsDescendantOf(workspace) or v:IsDescendantOf(game:GetService('Players')) or v:IsDescendantOf(game:GetService('Lighting')) or v:IsDescendantOf(game:GetService('ReplicatedFirst')) or v:IsDescendantOf(game:GetService('ReplicatedStorage')) or v:IsDescendantOf(game:GetService('StarterGui')) or v:IsDescendantOf(game:GetService('StarterPack')) or v:IsDescendantOf(game:GetService('StarterPlayer')) or v:IsDescendantOf(game:GetService('Chat')) then
 			if v:IsA('LocalScript') or v:IsA('ModuleScript') then
 				AddScript(v)
