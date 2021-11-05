@@ -872,7 +872,7 @@ local function AddResult(Script)
 			NormalClone.Visible = true
 		end
 
-		NormalClone.View.MouseButton1Click:Connect(function()
+		local function openEditor()
 			ScriptSearchTool.ScriptViewer.Enabled = true
 			ScriptSearchTool.Lines.Text = ''
 			ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
@@ -885,8 +885,9 @@ local function AddResult(Script)
 			ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
 			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 30, ScriptSearchTool.Code.TextBounds.Y + 30)
 			ScriptSearchTool.Lines.Size = UDim2.fromOffset(30, ScriptSearchTool.Code.TextBounds.Y + 20)
-		end)
+		end
 
+		NormalClone.View.MouseButton1Click:Connect(OpenEditor)
 
 		local IDEClone = ScriptSearchTool.WithIDETemlate:Clone()
 		IDEClone.Name = WithIDECloneName
@@ -901,20 +902,7 @@ local function AddResult(Script)
 			IDEClone.IDE.Code.Text = IDEClone.IDE.Code.Text..'\n'..tostring(CurrentLine)
 		end
 
-		IDEClone.View.MouseButton1Click:Connect(function()
-			ScriptSearchTool.ScriptViewer.Enabled = true
-			ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
-			ScriptSearchTool.Code.Size = UDim2.new(ScriptSearchTool.Code.Size)
-			local _, LineCount = ScriptSearchTool.Code.Text:gsub("\n", "")
-			local CurrentLine = 1
-			for i = LineCount - 1, 0, -1 do
-				CurrentLine = CurrentLine + 1
-				ScriptSearchTool.Lines.Text = ScriptSearchTool.Lines.Text..'\n'..tostring(CurrentLine)
-			end
-			ScriptSearchTool.ScriptName.Text = Script.Name..'.lua ('..Script.ClassName..')'
-			ScriptSearchTool.Code.Size = UDim2.fromOffset(ScriptSearchTool.Code.TextBounds.X + 30, ScriptSearchTool.Code.TextBounds.Y + 30)
-			ScriptSearchTool.Lines.Size = UDim2.fromOffset(30, ScriptSearchTool.Code.TextBounds.Y + 20)
-		end)
+		IDEClone.View.MouseButton1Click:Connect(OpenEditor)
 	end
 end
 
