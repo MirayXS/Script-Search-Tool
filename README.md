@@ -1,6 +1,8 @@
 # Script-Search-Tool
 This is a great tool for script developers who want to be able to make scripts using a decompiler, while being able to view and filter out scripts with certain functions and keywords.
-
+___
+If you get any errors, please contact me or fill out an issue in this repo. I won't be able to solve the issue unless I am communicated with about it.
+___
 **Features:**
 - Filter out scripts by their contents.
 - Reset, clear, and refresh scripts at the ease of a few buttons
