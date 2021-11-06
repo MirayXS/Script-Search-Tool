@@ -872,7 +872,7 @@ local function AddResult(Script)
 			NormalClone.Visible = true
 		end
 
-		local function openEditor()
+		local function OpenEditor()
 			ScriptSearchTool.ScriptViewer.Enabled = true
 			ScriptSearchTool.Lines.Text = ''
 			ScriptSearchTool.Code.Text = ScriptsDecompiled[Script.Name][2]
